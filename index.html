@@ -295,37 +295,14 @@ section { scroll-margin-top: calc(var(--nav-h) + env(safe-area-inset-top, 0px));
   background: #FFFDF8; border: 1px solid var(--rule-on-ivory);
   padding: clamp(24px, 4.5vw, 48px); min-width: 0;
 }
-form { display: grid; gap: 26px; }
-.row { display: grid; gap: 26px; }
-@media (min-width: 640px) { .row { grid-template-columns: 1fr 1fr; } }
-.field { display: grid; gap: 8px; min-width: 0; }
-.field label { font-size: var(--step-label); font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--midnight-plum); }
-.field label .opt { font-weight: 400; letter-spacing: 0.08em; text-transform: none; color: var(--ink-muted); }
-.field input, .field textarea {
-  width: 100%; box-sizing: border-box;
-  font: 400 1rem/1.5 var(--sans); color: var(--midnight-plum);
-  background: transparent; border: 0; border-bottom: 1px solid rgba(45, 15, 31, 0.35);
-  padding: 10px 2px; border-radius: 0;
-  transition: border-color .25s ease;
-}
-.field textarea { min-height: 96px; resize: vertical; }
-.field input::placeholder, .field textarea::placeholder { color: #8E7682; }
-.field input:hover, .field textarea:hover { border-bottom-color: var(--champagne-gold); }
-.field input:focus, .field textarea:focus { outline: none; border-bottom: 2px solid #B5574B; padding-bottom: 9px; }
-.field input:user-invalid { border-bottom-color: #A23B33; }
-.form-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
-.form-foot p { font-size: 0.85rem; color: var(--ink-muted); }
-.form-error { color: #A23B33; font-size: 0.9rem; }
-
-.confirmation { display: grid; gap: 18px; text-align: center; justify-items: center; padding-block: 24px; }
-.confirmation svg { width: 56px; height: 56px; color: var(--champagne-gold); }
-.confirmation h3 { font-size: var(--step-h3); }
-.confirmation p { color: var(--ink-muted); max-width: 40ch; }
-.link-btn {
-  background: none; border: 0; padding: 4px; cursor: pointer;
-  font: 600 0.72rem/1 var(--sans); letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--midnight-plum); text-decoration: underline; text-decoration-color: var(--champagne-gold); text-underline-offset: 6px;
-}
+.cta-panel { display: grid; justify-items: center; text-align: center; gap: 20px; padding-block: clamp(40px, 6vw, 64px); }
+.cta-icon { width: 48px; height: 48px; color: var(--champagne-gold); }
+.cta-panel h3 { font-size: var(--step-h3); }
+.cta-panel > p { color: var(--ink-muted); max-width: 38ch; }
+.cta-panel .btn { margin-top: 8px; }
+.cta-alt { font-size: 0.88rem; }
+.cta-alt a { color: var(--midnight-plum); text-decoration-color: var(--champagne-gold); text-underline-offset: 4px; }
+.cta-alt a:hover { color: #B5574B; }
 
 /* Partners */
 .partners { padding-block: clamp(64px, 8vw, 104px); }
@@ -520,53 +497,15 @@ form { display: grid; gap: 26px; }
         <p>Space is intimate by design. Tell us a little about yourself and what you're working on, and we'll be in touch with your invitation.</p>
       </div>
 
-      <div class="panel reveal">
-        <!-- Submissions are emailed to chloelacyevents@ckbusinessagency.com via FormSubmit (formsubmit.co).
-             The first submission triggers a one-time activation email to that inbox. -->
-        <form id="invite-form" action="https://formsubmit.co/ajax/chloelacyevents@ckbusinessagency.com" method="POST" novalidate>
-          <input type="hidden" name="_subject" value="New request to attend: The Afterglow Social">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-          <div class="row">
-            <div class="field">
-              <label for="f-name">Name</label>
-              <input id="f-name" name="name" type="text" autocomplete="name" required placeholder="Your full name">
-            </div>
-            <div class="field">
-              <label for="f-email">Email</label>
-              <input id="f-email" name="email" type="email" autocomplete="email" required placeholder="you@company.com">
-            </div>
-          </div>
-          <div class="row">
-            <div class="field">
-              <label for="f-company">Company</label>
-              <input id="f-company" name="company" type="text" autocomplete="organization" placeholder="Where you work or build">
-            </div>
-            <div class="field">
-              <label for="f-role">Title / role</label>
-              <input id="f-role" name="role" type="text" autocomplete="organization-title" placeholder="Founder, engineer, designer…">
-            </div>
-          </div>
-          <div class="field">
-            <label for="f-building">What are you building? <span class="opt">(optional)</span></label>
-            <textarea id="f-building" name="building" placeholder="A company, a career, a creative project, a community…"></textarea>
-          </div>
-          <p class="form-error" id="form-error" role="alert" hidden></p>
-          <div class="form-foot">
-            <p>We only use your details for this event.</p>
-            <button class="btn btn-primary" type="submit">Request to attend <span class="arrow" aria-hidden="true">→</span></button>
-          </div>
-        </form>
-
-        <div class="confirmation" id="confirmation" hidden tabindex="-1" aria-live="polite">
-          <svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
-            <circle cx="28" cy="28" r="26"/><path d="M18 29l7 7 13-15"/>
-          </svg>
-          <h3 id="confirm-title">Your request is in.</h3>
-          <p id="confirm-text">Thank you. Keep an eye on your inbox; we'll follow up with your invitation and the evening's details.</p>
-          <button class="link-btn" type="button" id="another">Submit another request</button>
-        </div>
+      <div class="panel cta-panel reveal">
+        <svg class="cta-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+          <path d="M9 9h22c0 7-5 11-11 11S9 16 9 9z"/><path d="M20 20v12M14 32h12"/><circle cx="27" cy="7" r="2.5"/>
+        </svg>
+        <h3>Your evening starts here.</h3>
+        <p>Requests take a moment. Once you're confirmed, we'll email you the venue address and the evening's details.</p>
+        <!-- TALLY POPUP: form GevKae. Needs the Tally embed script at the bottom of the page. -->
+        <button class="btn btn-primary" type="button" data-tally-open="GevKae" data-tally-layout="modal" data-tally-emoji-animation="wave" data-tally-auto-close="2000">Request to attend <span class="arrow" aria-hidden="true">→</span></button>
+        <p class="cta-alt">Form not opening? <a href="https://tally.so/r/GevKae" target="_blank" rel="noopener">Open it in a new tab</a></p>
       </div>
     </div>
   </div>
@@ -603,49 +542,6 @@ form { display: grid; gap: 26px; }
 
 <script>
 (function () {
-  /* ---------- Invitation form ---------- */
-  var form = document.getElementById('invite-form');
-  var confirmBox = document.getElementById('confirmation');
-  var errorEl = document.getElementById('form-error');
-
-  function showConfirmation(name) {
-    var first = (name || '').trim().split(/\s+/)[0];
-    document.getElementById('confirm-title').textContent =
-      first ? 'Thank you, ' + first + '. Your request is in.' : 'Your request is in.';
-    form.hidden = true;
-    confirmBox.hidden = false;
-    confirmBox.focus();
-  }
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    errorEl.hidden = true;
-    var name = form.elements.name, email = form.elements.email;
-    if (!name.value.trim()) { errorEl.textContent = 'Please add your name.'; errorEl.hidden = false; name.focus(); return; }
-    if (!email.value.trim() || !email.checkValidity()) {
-      errorEl.textContent = 'Please enter a valid email address, like you@company.com.';
-      errorEl.hidden = false; email.focus(); return;
-    }
-
-    var endpoint = form.getAttribute('action');
-
-    var btn = form.querySelector('button[type="submit"]');
-    btn.disabled = true;
-    fetch(endpoint, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
-      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-      .then(function (d) { if (d && (d.success === false || d.success === 'false')) throw new Error('rejected'); showConfirmation(name.value); form.reset(); })
-      .catch(function () {
-        errorEl.textContent = "We couldn't send your request just now. Please try again, or email chloelacyevents@ckbusinessagency.com with your name and what you're building.";
-        errorEl.hidden = false;
-      })
-      .then(function () { btn.disabled = false; });
-  });
-
-  document.getElementById('another').addEventListener('click', function () {
-    form.reset(); confirmBox.hidden = true; form.hidden = false;
-    form.elements.name.focus();
-  });
-
   /* ---------- Scroll reveal (armed on first scroll, so the page is complete at rest) ---------- */
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce || !('IntersectionObserver' in window)) return;
@@ -664,5 +560,6 @@ form { display: grid; gap: 26px; }
   window.addEventListener('scroll', arm, { once: true, passive: true });
 })();
 </script>
+<script async src="https://tally.so/widgets/embed.js"></script>
 
 </body></html>
