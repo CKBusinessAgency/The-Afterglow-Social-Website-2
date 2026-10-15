@@ -177,6 +177,15 @@ section { scroll-margin-top: calc(var(--nav-h) + env(safe-area-inset-top, 0px));
   padding: 0.55em 0.7em 0.5em 0.9em; border-radius: 999px; margin-left: 0.3em;
 }
 .tagline { font-family: var(--serif); font-size: var(--step-lead); font-style: italic; color: var(--soft-ivory); max-width: 34ch; }
+.byline {
+  display: flex; align-items: baseline; gap: 10px; margin-top: -10px;
+  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase;
+  color: var(--champagne-gold);
+}
+.byline .by {
+  font-family: var(--serif); font-style: italic; font-weight: 500;
+  font-size: 1.15rem; letter-spacing: 0.02em; text-transform: none; color: var(--ivory-muted);
+}
 .slogan { font-size: var(--step-label); font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: var(--champagne-gold); }
 .event-line {
   display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px;
@@ -371,6 +380,7 @@ section { scroll-margin-top: calc(var(--nav-h) + env(safe-area-inset-top, 0px));
       <h1 id="hero-title">
         <span class="the">The</span>Afterglow <em>Social</em><span class="htx">HTX</span>
       </h1>
+      <p class="byline"><span class="by">By</span> Chloe Lacy</p>
       <p class="tagline">Where culture, connection, and good company meet.</p>
       <p class="slogan">Not your average after party</p>
       <!-- EDIT: event details line (date · time · city) -->
