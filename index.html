@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
 <title>The Afterglow Social</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="The Afterglow Social (HTX): an evening cocktail lounge experience in Houston during AfroTech Week. Where culture, connection, and good company meet. Request to attend.">
@@ -521,9 +521,13 @@ form { display: grid; gap: 26px; }
       </div>
 
       <div class="panel reveal">
-        <!-- EDIT: replace the action URL with your form endpoint (e.g. Formspree, Basin, Netlify Forms).
-             While it stays as the placeholder, submissions only show the confirmation. -->
-        <form id="invite-form" action="https://YOUR-FORM-ENDPOINT.example/submit" method="POST" novalidate>
+        <!-- Submissions are emailed to chloelacyevents@ckbusinessagency.com via FormSubmit (formsubmit.co).
+             The first submission triggers a one-time activation email to that inbox. -->
+        <form id="invite-form" action="https://formsubmit.co/ajax/chloelacyevents@ckbusinessagency.com" method="POST" novalidate>
+          <input type="hidden" name="_subject" value="New request to attend: The Afterglow Social">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
           <div class="row">
             <div class="field">
               <label for="f-name">Name</label>
@@ -603,7 +607,6 @@ form { display: grid; gap: 26px; }
   var form = document.getElementById('invite-form');
   var confirmBox = document.getElementById('confirmation');
   var errorEl = document.getElementById('form-error');
-  var PLACEHOLDER = 'YOUR-FORM-ENDPOINT';
 
   function showConfirmation(name) {
     var first = (name || '').trim().split(/\s+/)[0];
@@ -624,15 +627,15 @@ form { display: grid; gap: 26px; }
       errorEl.hidden = false; email.focus(); return;
     }
 
-    var endpoint = form.getAttribute('action') || '';
-    if (endpoint.indexOf(PLACEHOLDER) !== -1) { showConfirmation(name.value); return; }
+    var endpoint = form.getAttribute('action');
 
     var btn = form.querySelector('button[type="submit"]');
     btn.disabled = true;
     fetch(endpoint, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
-      .then(function (r) { if (!r.ok) throw new Error(r.status); showConfirmation(name.value); form.reset(); })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (d) { if (d && (d.success === false || d.success === 'false')) throw new Error('rejected'); showConfirmation(name.value); form.reset(); })
       .catch(function () {
-        errorEl.textContent = "We couldn't send your request just now. Please check your connection and try again.";
+        errorEl.textContent = "We couldn't send your request just now. Please try again, or email chloelacyevents@ckbusinessagency.com with your name and what you're building.";
         errorEl.hidden = false;
       })
       .then(function () { btn.disabled = false; });
